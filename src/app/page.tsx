@@ -71,7 +71,7 @@ export default function Home() {
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <Input
             type="text"
-            placeholder="add a todo"
+            placeholder="add a task"
             value={task}
             onChange={(e) => setTask(e.target.value)}
           />
@@ -110,19 +110,19 @@ export default function Home() {
                 </div>
                 <div className="flex translate-x-4 items-center gap-2 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
                   <button disabled>
-                    <Calendar className="size-4 text-foreground-muted" />
+                    <Calendar className="text-foreground-muted size-4" />
                   </button>
                   <button disabled>
-                    <Target className="size-4 text-foreground-muted" />
+                    <Target className="text-foreground-muted size-4" />
                   </button>
                   <button
                     className=""
                     onClick={() => handleDelete(tasks.indexOf(task))}
                   >
-                    <Trash2 className="size-4 text-foreground-muted hover:text-destructive" />
+                    <Trash2 className="text-foreground-muted size-4 hover:text-destructive" />
                   </button>
                   <button disabled>
-                    <Ellipsis className="size-4 text-foreground-muted" />
+                    <Ellipsis className="text-foreground-muted size-4" />
                   </button>
                 </div>
               </div>
