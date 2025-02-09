@@ -1,9 +1,8 @@
 'use client'
 
 import { Button } from '~/components/ui/button'
-import { Checkbox } from '~/components/ui/checkbox'
-import { cn } from '~/lib/utils'
 import { Calendar, Ellipsis, Target, Trash2 } from 'lucide-react'
+import { cn } from '~/lib/utils'
 import { Input } from '~/components/ui/input'
 import { useState, useEffect } from 'react'
 
@@ -111,19 +110,19 @@ export default function Home() {
                 </div>
                 <div className="flex translate-x-4 items-center gap-2 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
                   <button disabled>
-                    <Calendar className="text-foreground-muted size-4" />
+                    <Calendar className="size-4 text-foreground-muted" />
                   </button>
                   <button disabled>
-                    <Target className="text-foreground-muted size-4" />
+                    <Target className="size-4 text-foreground-muted" />
                   </button>
                   <button
                     className=""
                     onClick={() => handleDelete(tasks.indexOf(task))}
                   >
-                    <Trash2 className="text-foreground-muted size-4 hover:text-destructive" />
+                    <Trash2 className="size-4 text-foreground-muted hover:text-destructive" />
                   </button>
                   <button disabled>
-                    <Ellipsis className="text-foreground-muted size-4" />
+                    <Ellipsis className="size-4 text-foreground-muted" />
                   </button>
                 </div>
               </div>
