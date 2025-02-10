@@ -1,0 +1,29 @@
+{
+  "tags": [
+    {
+      "id": "work",
+      "label": "Work",
+      "color": "accent"
+    },
+    {
+      "id": "personal",
+      "label": "Personal",
+      "color": "secondary"
+    },
+    {
+      "id": "shopping",
+      "label": "Shopping",
+      "color": "muted"
+    },
+    {
+      "id": "health",
+      "label": "Health",
+      "color": "primary"
+    },
+    {
+      "id": "learning",
+      "label": "Learning",
+      "color": "accent"
+    }
+  ]
+}

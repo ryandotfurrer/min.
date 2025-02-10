@@ -99,9 +99,18 @@ body {
 
 @layer base {
   * {
-    @apply min-w-0 border-border;
+    @apply min-w-0 border-border duration-300 ease-in-out;
   }
   body {
-    @apply bg-background-muted text-foreground-muted;
+    @apply text-pretty bg-background-muted text-foreground-muted;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-balance font-semibold tracking-tight;
   }
 }
