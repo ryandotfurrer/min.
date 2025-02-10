@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '~/components/ui/button'
-import { Calendar, Ellipsis, Pencil, Target, Trash2 } from 'lucide-react'
+import { Calendar, Save, SquarePen, Target, Trash } from 'lucide-react'
 import { cn } from '~/lib/utils'
 import { Input } from '~/components/ui/input'
 import { useState, useEffect } from 'react'
@@ -59,11 +59,14 @@ export default function Home() {
   }
 
   const startEditing = (taskText: string) => {
+    console.log('startEditing called with:', taskText)
+    console.log('Current editingTask:', editingTask)
     setEditingTask(taskText)
     setEditedText(taskText)
   }
 
   const saveEdit = () => {
+    console.log('saveEdit called, editingTask:', editingTask)
     if (editingTask === null) return
     setTasks(tasks.map((t) => (t === editingTask ? editedText : t)))
     setEditingTask(null)
@@ -92,85 +95,108 @@ export default function Home() {
             add task
           </Button>
         </form>
-        <div className="border-t py-4">
+        <div className="border-t border-border py-4">
           <ul>
-            {tasks.map((task) => (
-              <div
-                key={task}
-                className="group gap-4 rounded-md border border-transparent p-2 transition-all hover:border-border hover:bg-card"
-              >
-                <div className="flex items-center gap-4">
-                  <input
-                    type="checkbox"
-                    className="size-4 cursor-pointer justify-center accent-accent opacity-0 transition-opacity checked:bg-accent group-hover:opacity-100"
-                    name={`${task}-checkbox`}
-                    id={`${task}-checkbox`}
-                    checked={completedTasks.has(task)}
-                    onChange={() => completeTask(task)}
-                  />
-                  {editingTask === task ? (
-                    <form
-                      onSubmit={(e) => {
-                        e.preventDefault()
-                        saveEdit()
-                      }}
-                      className="flex-1 -translate-x-8 transition-transform group-hover:translate-x-0"
-                    >
-                      <Input
-                        value={editedText}
-                        onChange={(e) => setEditedText(e.target.value)}
-                        onBlur={saveEdit}
-                        autoFocus
-                        className="p-0"
-                      />
-                    </form>
-                  ) : (
-                    <li
-                      className={cn(
-                        completedTasks.has(task)
-                          ? 'text-foreground-muted line-through'
-                          : 'text-foreground',
-                        'w-full -translate-x-8 cursor-pointer transition-transform group-hover:translate-x-0',
-                      )}
-                      key={task}
-                      onClick={() => completeTask(task)}
-                    >
-                      {task}
-                    </li>
-                  )}
-                  <button
-                    id={`${task}-edit-button`}
-                    type="button"
-                    className="translate-x-4 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100"
-                    onClick={() => startEditing(task)}
-                  >
-                    <Pencil className="size-4 text-foreground-muted hover:text-foreground" />
-                  </button>
-                </div>
-                <div className="mt-4 flex translate-y-4 items-center gap-2 opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
-                  <div
-                    id="tags-container"
-                    className="mr-auto flex gap-2 text-xs"
-                  >
-                    <p className="rounded-sm bg-secondary p-1">tag</p>
-                    <p className="rounded-sm bg-secondary p-1">tag</p>
-                    <p className="rounded-sm bg-secondary p-1">tag</p>
+            {tasks.map((task) => {
+              console.log('Rendering task:', task, 'editingTask:', editingTask)
+              return (
+                <div
+                  key={task}
+                  className="group rounded-md border border-transparent py-2 pl-2 transition-all hover:border-border hover:bg-card"
+                >
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="size-4 cursor-pointer justify-center accent-accent opacity-0 transition-opacity checked:bg-accent group-hover:opacity-100"
+                      name={`${task}-checkbox`}
+                      id={`${task}-checkbox`}
+                      checked={completedTasks.has(task)}
+                      onChange={() => completeTask(task)}
+                    />
+                    {editingTask === task ? (
+                      <form
+                        name={`edit-form-${task}`}
+                        id={`edit-form-${task}`}
+                        onSubmit={(e) => {
+                          e.preventDefault()
+                          saveEdit()
+                        }}
+                        className="w-full"
+                      >
+                        <input
+                          value={editedText}
+                          onChange={(e) => setEditedText(e.target.value)}
+                          autoFocus
+                          type="text"
+                          className="w-full translate-x-2 border-b border-border bg-inherit text-inherit outline-none"
+                        />
+                      </form>
+                    ) : (
+                      <li
+                        className={cn(
+                          completedTasks.has(task)
+                            ? 'text-foreground-muted line-through'
+                            : 'text-foreground',
+                          'w-full -translate-x-4 cursor-pointer border-b border-transparent transition-transform group-hover:translate-x-2',
+                        )}
+                        key={task}
+                        onClick={() => completeTask(task)}
+                      >
+                        {task}
+                      </li>
+                    )}
+                    {editingTask === task ? (
+                      <button
+                        type="button"
+                        className="inline-flex size-10 translate-x-4 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium text-muted-foreground opacity-0 ring-offset-background transition-all hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-hover:translate-x-0 group-hover:opacity-100 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          saveEdit()
+                        }}
+                      >
+                        <Save className="size-4 text-foreground-muted hover:text-foreground" />
+                      </button>
+                    ) : (
+                      <button
+                        id={`${task}-edit-button`}
+                        type="button"
+                        className="inline-flex size-10 translate-x-4 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium text-muted-foreground opacity-0 ring-offset-background transition-all hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-hover:translate-x-0 group-hover:opacity-100 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          startEditing(task)
+                        }}
+                      >
+                        <SquarePen className="size-4 text-foreground-muted hover:text-foreground" />
+                      </button>
+                    )}
                   </div>
-                  <button disabled>
-                    <Calendar className="size-4 text-foreground-muted" />
-                  </button>
-                  <button disabled>
-                    <Target className="size-4 text-foreground-muted" />
-                  </button>
-                  <button onClick={() => deleteTask(tasks.indexOf(task))}>
-                    <Trash2 className="size-4 text-foreground-muted hover:text-destructive" />
-                  </button>
-                  <button disabled>
-                    <Ellipsis className="size-4 text-foreground-muted" />
-                  </button>
+                  <div className="mt-4 flex translate-y-4 items-center opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
+                    <div
+                      id="tags-container"
+                      className="mr-auto flex gap-2 text-xs"
+                    >
+                      <p className="rounded-sm bg-secondary p-1">writing</p>
+                      <p className="rounded-sm bg-secondary p-1">personal</p>
+                      <p className="rounded-sm bg-secondary p-1">blog</p>
+                    </div>
+                    <div id="action-btn-container" className="">
+                      <Button variant="icon" size="icon">
+                        <Calendar className="size-4 text-foreground-muted" />
+                      </Button>
+                      <Button variant="icon" size="icon">
+                        <Target className="size-4 text-foreground-muted" />
+                      </Button>
+                      <button
+                        className="inline-flex size-10 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium text-foreground-muted opacity-0 ring-offset-background transition-all hover:text-destructive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-hover:opacity-100 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+                        onClick={() => deleteTask(tasks.indexOf(task))}
+                      >
+                        <Trash className="size-4" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </ul>
         </div>
       </main>
