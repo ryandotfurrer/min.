@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '~/components/ui/button'
-import { Calendar, Ellipsis, Target, Trash2 } from 'lucide-react'
+import { Calendar, Ellipsis, Pencil, Target, Trash2 } from 'lucide-react'
 import { cn } from '~/lib/utils'
 import { Input } from '~/components/ui/input'
 import { useState, useEffect } from 'react'
@@ -10,7 +10,8 @@ export default function Home() {
   const [tasks, setTasks] = useState<string[]>([])
   const [task, setTask] = useState<string>('')
   const [completedTasks, setCompletedTasks] = useState<Set<string>>(new Set())
-  const [tags, setTags] = useState<Tag[]>([])
+  const [editingTask, setEditingTask] = useState<string | null>(null)
+  const [editedText, setEditedText] = useState<string>('')
 
   useEffect(() => {
     const savedTasks = sessionStorage.getItem('tasks')
@@ -57,6 +58,17 @@ export default function Home() {
     })
   }
 
+  const startEditing = (taskText: string) => {
+    setEditingTask(taskText)
+    setEditedText(taskText)
+  }
+
+  const saveEdit = () => {
+    if (editingTask === null) return
+    setTasks(tasks.map((t) => (t === editingTask ? editedText : t)))
+    setEditingTask(null)
+  }
+
   return (
     <>
       <header>
@@ -81,7 +93,7 @@ export default function Home() {
           </Button>
         </form>
         <div className="border-t py-4">
-          <ul className="space-y-4">
+          <ul>
             {tasks.map((task) => (
               <div
                 key={task}
@@ -91,32 +103,58 @@ export default function Home() {
                   <input
                     type="checkbox"
                     className="size-4 cursor-pointer justify-center accent-accent opacity-0 transition-opacity checked:bg-accent group-hover:opacity-100"
-                    name=""
-                    id=""
+                    name={`${task}-checkbox`}
+                    id={`${task}-checkbox`}
                     checked={completedTasks.has(task)}
                     onChange={() => completeTask(task)}
                   />
-                  <li
-                    className={cn(
-                      completedTasks.has(task)
-                        ? 'text-foreground-muted line-through'
-                        : 'text-foreground',
-                      'w-full -translate-x-8 cursor-pointer transition-transform group-hover:translate-x-0',
-                    )}
-                    key={task}
-                    onClick={() => completeTask(task)}
+                  {editingTask === task ? (
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault()
+                        saveEdit()
+                      }}
+                      className="flex-1 -translate-x-8 transition-transform group-hover:translate-x-0"
+                    >
+                      <Input
+                        value={editedText}
+                        onChange={(e) => setEditedText(e.target.value)}
+                        onBlur={saveEdit}
+                        autoFocus
+                        className="p-0"
+                      />
+                    </form>
+                  ) : (
+                    <li
+                      className={cn(
+                        completedTasks.has(task)
+                          ? 'text-foreground-muted line-through'
+                          : 'text-foreground',
+                        'w-full -translate-x-8 cursor-pointer transition-transform group-hover:translate-x-0',
+                      )}
+                      key={task}
+                      onClick={() => completeTask(task)}
+                    >
+                      {task}
+                    </li>
+                  )}
+                  <button
+                    id={`${task}-edit-button`}
+                    type="button"
+                    className="translate-x-4 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100"
+                    onClick={() => startEditing(task)}
                   >
-                    {task}
-                  </li>
+                    <Pencil className="size-4 text-foreground-muted hover:text-foreground" />
+                  </button>
                 </div>
                 <div className="mt-4 flex translate-y-4 items-center gap-2 opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
                   <div
                     id="tags-container"
                     className="mr-auto flex gap-2 text-xs"
                   >
-                    <p className="rounded-sm bg-muted p-1">tag</p>
-                    <p className="rounded-sm bg-muted p-1">tag</p>
-                    <p className="rounded-sm bg-muted p-1">tag</p>
+                    <p className="rounded-sm bg-secondary p-1">tag</p>
+                    <p className="rounded-sm bg-secondary p-1">tag</p>
+                    <p className="rounded-sm bg-secondary p-1">tag</p>
                   </div>
                   <button disabled>
                     <Calendar className="size-4 text-foreground-muted" />
@@ -124,10 +162,7 @@ export default function Home() {
                   <button disabled>
                     <Target className="size-4 text-foreground-muted" />
                   </button>
-                  <button
-                    className=""
-                    onClick={() => deleteTask(tasks.indexOf(task))}
-                  >
+                  <button onClick={() => deleteTask(tasks.indexOf(task))}>
                     <Trash2 className="size-4 text-foreground-muted hover:text-destructive" />
                   </button>
                   <button disabled>

@@ -2,27 +2,27 @@
   "tags": [
     {
       "id": "work",
-      "label": "Work",
+      "label": "work",
       "color": "accent"
     },
     {
       "id": "personal",
-      "label": "Personal",
+      "label": "personal",
       "color": "secondary"
     },
     {
       "id": "shopping",
-      "label": "Shopping",
+      "label": "shopping",
       "color": "muted"
     },
     {
       "id": "health",
-      "label": "Health",
+      "label": "health",
       "color": "primary"
     },
     {
       "id": "learning",
-      "label": "Learning",
+      "label": "learning",
       "color": "accent"
     }
   ]
