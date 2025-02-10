@@ -113,4 +113,8 @@ body {
   h6 {
     @apply text-balance font-semibold tracking-tight;
   }
+
+  p {
+    @apply leading-7 [&:not(:first-child)]:mt-6;
+  }
 }

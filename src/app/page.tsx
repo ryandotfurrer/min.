@@ -5,6 +5,7 @@ import { Calendar, Save, SquarePen, Target, Trash } from 'lucide-react'
 import { cn } from '~/lib/utils'
 import { Input } from '~/components/ui/input'
 import { useState, useEffect } from 'react'
+import { HGroup } from '~/components/hgroup'
 
 export default function Home() {
   const [tasks, setTasks] = useState<string[]>([])
@@ -75,13 +76,12 @@ export default function Home() {
   return (
     <>
       <header>
-        <hgroup className="pb-12">
+        <HGroup subtitle="a simple task app">
           <h1 className="flex text-4xl font-semibold leading-none tracking-tight text-foreground">
             min
             <span className="mt-2 self-end text-accent">•</span>
           </h1>
-          <p className="text-xl">a simple task app</p>
-        </hgroup>
+        </HGroup>
       </header>
       <main className="space-y-1">
         <form className="mb-12 flex flex-col gap-4" onSubmit={handleSubmit}>
