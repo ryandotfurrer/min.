@@ -73,7 +73,7 @@ body {
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5.2% 33.9%;
 
-    --accent: 24.6 95% 53.1%;
+    --accent: 20.5 90.2% 48.2%;
     --accent-foreground: 240 5.9% 10%;
 
     --destructive: 0 90.6% 70.8%;
@@ -99,7 +99,7 @@ body {
 
 @layer base {
   * {
-    @apply min-w-0 border-border duration-300 ease-in-out;
+    @apply min-w-0 border-border;
   }
   body {
     @apply text-pretty bg-background-muted text-foreground-muted;
@@ -112,5 +112,9 @@ body {
   h5,
   h6 {
     @apply text-balance font-semibold tracking-tight;
+  }
+
+  p {
+    @apply leading-7 [&:not(:first-child)]:mt-6;
   }
 }

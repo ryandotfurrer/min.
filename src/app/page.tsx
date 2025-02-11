@@ -3,7 +3,11 @@
 import { Button } from '~/components/ui/button'
 import { Calendar, Save, SquarePen, Target, Trash } from 'lucide-react'
 import { cn } from '~/lib/utils'
+import { Heading } from '~/components/heading'
+import { HGroup } from '~/components/hgroup'
 import { Input } from '~/components/ui/input'
+import { tags } from '../../public/dummy-data'
+import { toast } from 'sonner'
 import { useState, useEffect } from 'react'
 
 export default function Home() {
@@ -40,10 +44,12 @@ export default function Home() {
     e.preventDefault()
     setTasks([...tasks, task])
     setTask('')
+    toast.success('Task created')
   }
 
   const deleteTask = (index: number) => {
     setTasks(tasks.filter((_, i) => i !== index))
+    toast.error('Task deleted')
   }
 
   const completeTask = (taskKey: string) => {
@@ -56,6 +62,7 @@ export default function Home() {
       }
       return newCompleted
     })
+    toast.success('Task completed')
   }
 
   const startEditing = (taskText: string) => {
@@ -70,18 +77,18 @@ export default function Home() {
     if (editingTask === null) return
     setTasks(tasks.map((t) => (t === editingTask ? editedText : t)))
     setEditingTask(null)
+    toast.success('Task updated')
   }
 
   return (
     <>
       <header>
-        <hgroup className="pb-12">
-          <h1 className="flex text-4xl font-semibold leading-none tracking-tight text-foreground">
+        <HGroup subtitle="a simple task app">
+          <Heading variant="h1" className="flex">
             min
             <span className="mt-2 self-end text-accent">•</span>
-          </h1>
-          <p className="text-xl">a simple task app</p>
-        </hgroup>
+          </Heading>
+        </HGroup>
       </header>
       <main className="space-y-1">
         <form className="mb-12 flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -107,7 +114,7 @@ export default function Home() {
                   <div className="flex items-center">
                     <input
                       type="checkbox"
-                      className="size-4 cursor-pointer justify-center accent-accent opacity-0 transition-opacity checked:bg-accent group-hover:opacity-100"
+                      className="size-4 cursor-pointer justify-center accent-accent opacity-0 transition-opacity group-hover:opacity-100"
                       name={`${task}-checkbox`}
                       id={`${task}-checkbox`}
                       checked={completedTasks.has(task)}
@@ -128,7 +135,7 @@ export default function Home() {
                           onChange={(e) => setEditedText(e.target.value)}
                           autoFocus
                           type="text"
-                          className="w-full translate-x-2 border-b border-border bg-inherit text-inherit outline-none"
+                          className="w-full translate-x-2 border-b border-border bg-inherit pr-2 text-inherit outline-none transition-colors duration-300 focus:bg-accent/20"
                         />
                       </form>
                     ) : (
@@ -137,7 +144,7 @@ export default function Home() {
                           completedTasks.has(task)
                             ? 'text-foreground-muted line-through'
                             : 'text-foreground',
-                          'w-full -translate-x-4 cursor-pointer border-b border-transparent transition-transform group-hover:translate-x-2',
+                          'w-full -translate-x-4 cursor-pointer border-b border-transparent pr-2 transition-transform group-hover:translate-x-2',
                         )}
                         key={task}
                         onClick={() => completeTask(task)}
@@ -175,11 +182,19 @@ export default function Home() {
                       id="tags-container"
                       className="mr-auto flex gap-2 text-xs"
                     >
-                      <p className="rounded-sm bg-secondary p-1">writing</p>
-                      <p className="rounded-sm bg-secondary p-1">personal</p>
-                      <p className="rounded-sm bg-secondary p-1">blog</p>
+                      {tags
+                        .sort(() => Math.random() - 0.5)
+                        .slice(0, Math.floor(Math.random() * 3) + 1)
+                        .map((tag) => (
+                          <div
+                            key={tag.id}
+                            className="rounded-sm bg-muted px-1 text-xs"
+                          >
+                            {tag.label}
+                          </div>
+                        ))}
                     </div>
-                    <div id="action-btn-container" className="">
+                    <div id="action-btn-container">
                       <Button variant="icon" size="icon">
                         <Calendar className="size-4 text-foreground-muted" />
                       </Button>
