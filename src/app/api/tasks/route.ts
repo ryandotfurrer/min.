@@ -6,7 +6,7 @@ const getClient = () => {
   return getXataClient()
 }
 
-export async function getAllTasks() {
+async function getAllTasks() {
   try {
     const xata = getClient()
     const tasks = await xata.db.Tasks.getAll()
@@ -17,19 +17,19 @@ export async function getAllTasks() {
   }
 }
 
-export async function createTask(task: Tasks) {
+async function createTask(task: Tasks) {
   const xata = getClient()
   const newTask = await xata.db.Tasks.create(task)
   return newTask
 }
 
-export async function updateTask(task: Tasks) {
+async function updateTask(task: Tasks) {
   const xata = getClient()
   const updatedTask = await xata.db.Tasks.update(task)
   return updatedTask
 }
 
-export async function deleteTask(task: Tasks) {
+async function deleteTask(task: Tasks) {
   const xata = getClient()
   const deletedTask = await xata.db.Tasks.delete(task)
   return deletedTask
