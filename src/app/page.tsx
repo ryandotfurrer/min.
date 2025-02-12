@@ -1,12 +1,12 @@
 'use client'
 
 console.log(process.env)
-import { Button } from '~/components/ui/button'
+import { Button } from '~/components/button'
 import { Calendar, Save, SquarePen, Target, Trash } from 'lucide-react'
 import { cn } from '~/lib/utils'
 import { Heading } from '~/components/heading'
 import { HGroup } from '~/components/hgroup'
-import { Input } from '~/components/ui/input'
+import { Input } from '~/components/input'
 import { tags } from '../../public/dummy-data'
 import { toast } from 'sonner'
 import { useState, useEffect } from 'react'
@@ -90,7 +90,14 @@ export default function Home() {
             min
             <span className="mt-2 self-end text-accent">•</span>
           </Heading>
-          <Link href="./pages/xata-queries">Xata Queries</Link>
+          <div className="grid grid-cols-1 bg-accent/20 p-2 text-foreground underline">
+            <Link href="/pages/xata-queries" className="block">
+              Xata Queries
+            </Link>
+            <Link href="/pages/client-query" className="block">
+              Client Query
+            </Link>
+          </div>
         </HGroup>
       </header>
       <main className="space-y-1">

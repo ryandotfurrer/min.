@@ -1,7 +1,7 @@
 require('dotenv').config()
 import './globals.css'
 import { Geist, Geist_Mono } from 'next/font/google'
-import { Toaster } from '~/components/ui/sonner'
+import { Toaster } from '~/components/sonner'
 import type { Metadata } from 'next'
 
 const geistSans = Geist({
