@@ -122,9 +122,10 @@ export type DatabaseSchema = {
 const DatabaseClient = buildClient()
 
 const defaultOptions = {
-  databaseURL: process.env.XATA_DATABASE_URL,
+  databaseURL:
+    'https://Ryan-Furrer-s-workspace-ss820h.us-east-1.xata.sh/db/min-tasks',
+  branch: 'dev',
   apiKey: process.env.XATA_API_KEY,
-  branch: process.env.XATA_BRANCH,
 }
 
 export class XataClient extends DatabaseClient<DatabaseSchema> {
