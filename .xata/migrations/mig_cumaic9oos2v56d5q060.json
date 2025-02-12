@@ -1,0 +1,25 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cumaic9oos2v56d5q060",
+    "operations": [
+      {
+        "add_column": {
+          "table": "Tasks",
+          "column": {
+            "name": "completed",
+            "type": "bool",
+            "comment": "",
+            "default": "'false'",
+            "nullable": true
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cumaic9oos2v56d5q060",
+  "parent": "mig_cumai7c27onfu5mm3pv0",
+  "schema": "public",
+  "startedAt": "2025-02-12T13:59:13.687088Z"
+}

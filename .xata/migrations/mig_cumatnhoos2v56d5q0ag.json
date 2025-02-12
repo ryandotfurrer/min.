@@ -1,0 +1,20 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cumatnhoos2v56d5q0ag",
+    "operations": [
+      {
+        "alter_column": {
+          "name": "taskName",
+          "table": "Tasks",
+          "column": "task"
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cumatnhoos2v56d5q0ag",
+  "parent": "mig_cumar2sq7gi7283okkn0",
+  "schema": "public",
+  "startedAt": "2025-02-12T14:23:27.771004Z"
+}

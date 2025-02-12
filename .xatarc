@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Ryan-Furrer-s-workspace-ss820h.us-east-1.xata.sh/db/min-tasks",
+  "codegen": {
+    "output": "src/lib/xata.ts"
+  }
+}

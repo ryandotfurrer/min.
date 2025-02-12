@@ -1,5 +1,6 @@
 'use client'
 
+console.log(process.env)
 import { Button } from '~/components/ui/button'
 import { Calendar, Save, SquarePen, Target, Trash } from 'lucide-react'
 import { cn } from '~/lib/utils'
@@ -9,6 +10,7 @@ import { Input } from '~/components/ui/input'
 import { tags } from '../../public/dummy-data'
 import { toast } from 'sonner'
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 export default function Home() {
   const [tasks, setTasks] = useState<string[]>([])
@@ -88,6 +90,7 @@ export default function Home() {
             min
             <span className="mt-2 self-end text-accent">•</span>
           </Heading>
+          <Link href="./pages/xata-queries">Xata Queries</Link>
         </HGroup>
       </header>
       <main className="space-y-1">

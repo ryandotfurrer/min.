@@ -1,0 +1,18 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cumahbc27onfu5mm3pr0",
+    "operations": [
+      {
+        "drop_table": {
+          "name": "Tasks"
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cumahbc27onfu5mm3pr0",
+  "parent": "mig_cumagn427onfu5mm3pq0",
+  "schema": "public",
+  "startedAt": "2025-02-12T13:57:02.981476Z"
+}

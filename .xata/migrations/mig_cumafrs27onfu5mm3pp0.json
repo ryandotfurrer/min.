@@ -1,0 +1,24 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cumafrs27onfu5mm3pp0",
+    "operations": [
+      {
+        "add_column": {
+          "up": "''",
+          "table": "Tasks",
+          "column": {
+            "name": "taskName",
+            "type": "text",
+            "comment": ""
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cumafrs27onfu5mm3pp0",
+  "parent": "mig_cuma4mc27onfu5mm3pjg",
+  "schema": "public",
+  "startedAt": "2025-02-12T13:53:52.645263Z"
+}

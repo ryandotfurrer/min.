@@ -1,0 +1,24 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cumai7c27onfu5mm3pv0",
+    "operations": [
+      {
+        "add_column": {
+          "table": "Tasks",
+          "column": {
+            "name": "dueDate",
+            "type": "timestamptz",
+            "comment": "",
+            "nullable": true
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cumai7c27onfu5mm3pv0",
+  "parent": "mig_cumai4hoos2v56d5q050",
+  "schema": "public",
+  "startedAt": "2025-02-12T13:58:54.402841Z"
+}
